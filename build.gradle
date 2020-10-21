@@ -7,7 +7,7 @@ plugins {
     id 'jacoco'
     id 'distribution'
     id 'checkstyle'
-    id 'com.github.spotbugs' version "4.2.4"
+//    id 'com.github.spotbugs' version "4.2.4"
 }
 
 tasks.withType(JavaCompile) {
@@ -22,7 +22,13 @@ compileTestJava {
 }
 
 repositories {
+    mavenLocal()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/"}
     mavenCentral()
+    jcenter()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }  //转换pdf使用
 }
 
 sourceSets {
@@ -371,11 +377,11 @@ signing {
     sign publishing.publications.rhinoruntime
 }
 
-spotbugs {
-    effort = "less"
-    reportLevel = "medium"
-    excludeFilter = file("./spotbugs-exclude.xml")
-}
+//spotbugs {
+//    effort = "less"
+//    reportLevel = "medium"
+//    excludeFilter = file("./spotbugs-exclude.xml")
+//}
 
 jacocoTestReport.dependsOn test
 jacocoTestReport {
